@@ -4,7 +4,7 @@ $(document).ready(function() {
 var topics = ["Pizza", "Panda", "Coding", "Monkey", "Koala", "Dog", "Bird", "Ferret", "Cat"];    const theme = new Audio("assets/got-theme-song.mp3");
 //var giphyURL = "https://api.giphy.com/v1/gifs/trending?api_key=FksXZxJtNgMhBh9yoAtA6sJfP13eNyd4";
    
-// MAKE BUTTONS
+// Make Buttons
     
 function makeButtons() {
     
@@ -20,7 +20,7 @@ function makeButtons() {
         $("#got-buttons").append(b);
     };
 };
-//ADD ONCLICK FUNCTION
+//Add OnClick Function
 $("#add-character").on("click", function(event) {
 
     event.preventDefault();
