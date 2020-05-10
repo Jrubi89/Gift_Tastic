@@ -1,28 +1,29 @@
 $(document).ready(function() {
 
+ 
 //Array of strings saved to a variable called 'topics'
 var topics = ["Pizza", "Panda", "Coding", "Monkey", "Koala", "Dog", "Bird", "Ferret", "Cat"];    const theme = new Audio("assets/got-theme-song.mp3");
 //var giphyURL = "https://api.giphy.com/v1/gifs/trending?api_key=FksXZxJtNgMhBh9yoAtA6sJfP13eNyd4";
-   
+
 // Make Buttons
-    
 function makeButtons() {
     
     $("#got-buttons").empty();
-        for (i = 0; i < topics.length; i++) {
-                
+
+    for (i = 0; i < topics.length; i++) {
+        
         var b = $("<button>");
-    
+
         b.addClass("character-btn");
         b.attr("data-name", topics[i]);
         b.text(topics[i]);
-    
+
         $("#got-buttons").append(b);
     };
 };
-//Add OnClick Function
+ //Add OnClick Function   
 $("#add-character").on("click", function(event) {
-
+    
     event.preventDefault();
 
     var character = $("#got-input").val().trim();
@@ -34,3 +35,46 @@ $("#add-character").on("click", function(event) {
 
     console.log(topics);
 });
+
+makeButtons();
+    
+//FUNCTION FOR GRABBING GIPHY API CONTENT
+    
+function dataPull() {
+    
+    var characterName = $(this).attr("data-name");
+    var characterStr = characterName.split(" ").join("+");
+    var giphyURL = "https://api.giphy.com/v1/gifs/search?q=" + characterStr + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+    $.ajax({
+   url: giphyURL,
+   method: "GET"
+ }).done(function(response) {
+   
+   console.log(giphyURL);
+   console.log(response);
+
+   results = response.data;
+
+   $("#gifs").empty();
+   for (var i = 0; i < results.length; i++) {
+       
+       var characterDiv = $("<div>");
+       var para = $("<p class='rating'>").text("Rating: " + results[i].rating);
+       var characterImage = $("<img>");
+
+       para.addClass("rating-text")
+       
+     characterImage.addClass("image-gifs")
+       characterImage.attr("src", results[i].images.fixed_height_still.url);
+       characterImage.attr("data-state", "still");
+     characterImage.attr("data-position", i);
+
+       characterDiv.append(para);
+     characterDiv.append(characterImage);
+     characterDiv.addClass("individual-gifs")
+
+     $("#gifs").prepend(characterDiv);
+
+   }; //ENDS FOR LOOP
+ }); // ENDS AJAX FUNCTION
