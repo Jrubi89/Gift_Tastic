@@ -20,3 +20,17 @@ function makeButtons() {
         $("#got-buttons").append(b);
     };
 };
+//ADD ONCLICK FUNCTION
+$("#add-character").on("click", function(event) {
+
+    event.preventDefault();
+
+    var character = $("#got-input").val().trim();
+
+    topics.push(character);
+    $("#got-input").val("");
+
+    makeButtons();
+
+    console.log(topics);
+});
