@@ -78,3 +78,33 @@ function dataPull() {
 
    }; //ENDS FOR LOOP
  }); // ENDS AJAX FUNCTION
+
+};
+
+// Use document on click function to apply function for elements AFTER the page has loaded
+
+$(document).on("click", ".character-btn", dataPull);
+
+// ANIMATE GIFS
+
+function gifAnimation() {
+    var state = $(this).attr("data-state");
+    var position = $(this).attr("data-position"); //will return a string
+    position = parseInt(position); //string to integer
+
+    console.log(results[position].images.fixed_height.url);
+    console.log(position);
+
+    if (state === "still") {
+      console.log("we're here");
+      $(this).attr("src", results[position].images.fixed_height.url);
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", results[position].images.fixed_height_still.url);
+      $(this).attr("data-state", "still");
+    }
+};
+  $(document).on("click", ".image-gifs", gifAnimation);
+
+}); //document.ready 
+
