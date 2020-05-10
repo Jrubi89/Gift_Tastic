@@ -46,7 +46,7 @@ function dataPull() {
     var characterStr = characterName.split(" ").join("+");
     var giphyURL = "https://api.giphy.com/v1/gifs/search?q=" + characterStr + "&api_key=dc6zaTOxFJmzC&limit=10";
 
-    $.ajax({
+   $.ajax({
    url: giphyURL,
    method: "GET"
  }).done(function(response) {
@@ -57,22 +57,23 @@ function dataPull() {
    results = response.data;
 
    $("#gifs").empty();
+  
    for (var i = 0; i < results.length; i++) {
        
        var characterDiv = $("<div>");
        var para = $("<p class='rating'>").text("Rating: " + results[i].rating);
        var characterImage = $("<img>");
 
-       para.addClass("rating-text")
+    para.addClass("rating-text");
        
-     characterImage.addClass("image-gifs")
-       characterImage.attr("src", results[i].images.fixed_height_still.url);
-       characterImage.attr("data-state", "still");
+     characterImage.addClass("image-gifs");
+     characterImage.attr("src", results[i].images.fixed_height_still.url);
+     characterImage.attr("data-state", "still");
      characterImage.attr("data-position", i);
 
-       characterDiv.append(para);
+     characterDiv.append(para);
      characterDiv.append(characterImage);
-     characterDiv.addClass("individual-gifs")
+     characterDiv.addClass("individual-gifs");
 
      $("#gifs").prepend(characterDiv);
 
@@ -86,7 +87,7 @@ function dataPull() {
 $(document).on("click", ".character-btn", dataPull);
 
 // ANIMATE GIFS
-
+    
 function gifAnimation() {
     var state = $(this).attr("data-state");
     var position = $(this).attr("data-position"); //will return a string
@@ -103,8 +104,8 @@ function gifAnimation() {
       $(this).attr("src", results[position].images.fixed_height_still.url);
       $(this).attr("data-state", "still");
     }
-};
-  $(document).on("click", ".image-gifs", gifAnimation);
+  };
+
+$(document).on("click", ".image-gifs", gifAnimation);
 
 }); //document.ready 
-
